@@ -31,9 +31,6 @@ def get_guess_two(words):
 def main():
     guesses = 0
 
-    with open('wordlist.txt', 'r') as infile:
-    	wordle_words = infile.readlines()
-
     filtered_words = list({word.lower() for word in words.words() if len(word) == 5 and '-' not in word})
 
     while guesses < MAX_GUESSES:
