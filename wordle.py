@@ -1,5 +1,3 @@
-import collections
-import random
 from nltk.corpus import words
 
 
@@ -30,33 +28,13 @@ def get_guess_two(words):
     return best_word_score_pair[0]
 
 
-def get_guess(words):
-    positional_frequencies = {1: {}, 2: {}, 3: {}, 4: {}, 5: {}}
-    for word in words:
-        for idx, c in enumerate(word, start=1):
-            if c not in positional_frequencies[idx]:
-                positional_frequencies[idx][c] = 1
-            else:
-                positional_frequencies[idx][c] += 1
-
-    word_scores = {}
-    for word in words:
-        score = sum(positional_frequencies[idx][c] for idx, c in enumerate(word, start=1))
-        word_scores[word] = score
-
-    return sorted(word_scores.items(), key=lambda item: item[1], reverse=True)[0][0]
-
-
 def main():
     guesses = 0
 
     with open('wordlist.txt', 'r') as infile:
     	wordle_words = infile.readlines()
 
-    #filtered_words = [word.strip() for word in wordle_words]
     filtered_words = list({word.lower() for word in words.words() if len(word) == 5 and '-' not in word})
-    # filtered_words.extend(doc_filtered_words)
-    # filtered_words = list(set(filtered_words))
 
     while guesses < MAX_GUESSES:
         if guesses == 0:
